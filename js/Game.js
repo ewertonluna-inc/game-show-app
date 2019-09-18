@@ -17,16 +17,22 @@
         this.activePhrase.addPhraseToDisplay();
     }
 
+    /**
+     * Gets random phrase from phrases
+     * @returns {Phrase} phrase object */
     getRandomPhrase(){
         const index = Math.round(Math.random() * 5);
         return this.phrases[index];
     }
 
+    /**
+     * Handles player interaction with onscreen display
+     * @param {Object} event event object */
     handleInteraction(event){
         const button = event.target;
         const letter = button.textContent;
-        const isMatch = this.activePhrase.check(letter);
-        button.setAttribute('disabled', '');
+        const isMatch = this.activePhrase.checkLetter(letter);
+        button.disabled = true;
 
         if (isMatch){
             button.className += " " + "chosen";
@@ -38,16 +44,10 @@
             button.className += " " + "wrong";
             this.removeLife();
         }
-        // if there's no matched letter, add the 'wrong' css class to the selected
-            //keyboard letter and call removeLife()
-        // if there's matched letter, add 'chosen' css class to the selected letter
-            // keyboard button. call showMatchedLetter(). call checkForWin().
-                //if player has won, call gameOver()
     }
 
     /**
-     * Increases number of missed plays and removes a heart
-     */
+     * Increases number of missed plays and removes a heart */
     removeLife(){
         const hearts = document.querySelectorAll('#scoreboard img');
         
@@ -67,8 +67,7 @@
 
     /**
      * Cheks if player won the game
-     * @returns {boolean}  true if all phrase letters are shown and false otherwise.
-     */
+     * @returns {boolean}  true if all phrase letters are shown and false otherwise. */
     checkForWin(){
         const phraseDiv = document.getElementById('phrase');
         const keys = phraseDiv.querySelectorAll('li');

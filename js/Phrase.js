@@ -40,7 +40,7 @@
         const matchedElements = document.getElementsByClassName(letter);
         
         for (let element of matchedElements){
-            element.className.replace(/hide/, 'show');
+            element.className = element.className.replace(/hide/, 'show');
         }
     }
 
