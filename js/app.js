@@ -14,7 +14,7 @@ document.getElementById('btn__reset').addEventListener('click', () => {
         key.addEventListener('click', function(event){
             game.handleInteraction(event);
         });
-    }
+    
 
 });
 

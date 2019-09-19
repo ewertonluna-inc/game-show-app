@@ -12,6 +12,7 @@
     /**
      * Displays the board and starts the game. */
     startGame(){
+        this.resetGame();
         document.getElementById('overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
@@ -33,7 +34,7 @@
         const letter = button.textContent;
         const isMatch = this.activePhrase.checkLetter(letter);
         button.disabled = true;
-
+        
         if (isMatch){
             button.className += " " + "chosen";
             this.activePhrase.showMatchedLetter(letter);
@@ -62,7 +63,6 @@
         if (this.missed > 5){
             this.gameOver('You lost!');
         }
-        
     }
 
     /**
@@ -85,21 +85,6 @@
     }
 
     /**
-     * Displays game over message overlaying the board 
-     * @param {String} message - Message to be displayed when game is over */
-    gameOver(message){
-        const overlayDiv = document.getElementById('overlay');
-        overlayDiv.style.display = 'block';
-        document.getElementById('game-over-message').textContent = message;
-        
-        if (this.missed > 5){
-            overlayDiv.className = 'lose';
-        } else {
-            overlayDiv.className = 'win';
-        }
-    }
-
-    /**
      * Creates five phrase objects
      * @return {Array}    An array of five phrase objects */
     createPhrases(){
@@ -116,6 +101,34 @@
             result.push(new Phrase(phrase));
         }
         return result;
+    }
+
+    /**
+     * Displays game over message overlaying the board 
+     * @param {String} message - Message to be displayed when game is over */
+    gameOver(message){
+        const overlayDiv = document.getElementById('overlay');
+        overlayDiv.style.display = 'block';
+        document.getElementById('game-over-message').textContent = message;
+        
+        if (this.missed > 5){
+            overlayDiv.className = 'lose';
+        } else {
+            overlayDiv.className = 'win';
+        }
+    }
+
+    /**
+     * Resets game to initial state.
+     * Removes phrase from DOM, resets keyboard styles and liveHeart
+     * images.
+     */
+    resetGame(){
+        $('#phrase ul').children().remove();
+        $('.chosen').attr('class', 'key');
+        $('.wrong').attr('class', 'key');
+        $('.key').prop('disabled', false);
+        $('.tries img').attr('src', 'images/liveHeart.png');
     }
 
  }
