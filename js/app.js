@@ -3,21 +3,27 @@
  * app.js */
 
 
+let game;
+
+const keys = document.getElementsByClassName('key');
+    
+for (let key of keys){
+    // Handles onscreen keyboard functionality
+    key.addEventListener('click', function(event){
+        game.handleInteraction(event);
+    });
+}
 
 document.getElementById('btn__reset').addEventListener('click', () => {
-    const game = new Game();
-    const keys = document.getElementsByClassName('key');
+    game = new Game();
     
     game.startGame();
-    
-    for (let key of keys){
-        key.addEventListener('click', function(event){
-            game.handleInteraction(event);
-        });
-    }
-
 });
 
+// Handles phisical keyboard functionality
+document.addEventListener('keydown', function(event){
+    game.handleKeyboarInteraction(event);
+});
 
 
 

@@ -22,12 +22,12 @@
      * Gets random phrase from phrases
      * @returns {Phrase} phrase object */
     getRandomPhrase(){
-        const index = Math.round(Math.random() * 5);
+        const index = Math.floor(Math.random() * 5);
         return this.phrases[index];
     }
 
     /**
-     * Handles player interaction with onscreen display
+     * Handles player interaction with onscreen keyboard
      * @param {Object} event event object */
     handleInteraction(event){
         const button = event.target;
@@ -48,6 +48,41 @@
     }
 
     /**
+     * Handles player interaction with phisical keyboard
+     * @param {Object} event event object */
+    handleKeyboarInteraction(event){
+        let button;
+        const keys = document.getElementsByClassName("key");
+        const letter = event.key;
+        const isMatch = this.activePhrase.checkLetter(letter);
+        
+        // sets button to the .key element related to the key pressed on the keyboard
+        for (let key of keys){
+            if (key.textContent == event.key){
+                button = key;
+            }
+        }
+
+        // if player presses a valid key button, the modifications on the game happens
+        // otherwise button stays undefined and nothing happens to the game
+        if (button){
+            button.disabled = true;
+            
+            if (isMatch){
+                button.className += " " + "chosen";
+                this.activePhrase.showMatchedLetter(letter);
+                
+                if(this.checkForWin()){
+                    this.gameOver("You Win!");
+                }
+            } else {
+                button.className += " " + "wrong";
+                this.removeLife();
+            }
+        }   
+    }
+
+    /**
      * Increases number of missed plays and removes a heart */
     removeLife(){
         const hearts = document.querySelectorAll('#scoreboard img');
@@ -60,7 +95,7 @@
         }
         this.missed += 1;
         
-        if (this.missed > 5){
+        if (this.missed >= 5){
             this.gameOver('You lost!');
         }
     }
@@ -111,7 +146,21 @@
         overlayDiv.style.display = 'block';
         document.getElementById('game-over-message').textContent = message;
         
-        if (this.missed > 5){
+        if (this.missed >= 5){
+            // Creating elements to display the phrase that the player didn't guess
+            const phrase = this.activePhrase.phrase;
+            const losingMessage = document.createElement('h1');
+            const span = document.createElement('span');
+            
+            // Setting properties of those elements
+            losingMessage.id = "additional-message";
+            losingMessage.textContent = "The phrase was ";
+            span.textContent = `"${phrase}"`;
+            
+            //Placing the elements into the DOM
+            losingMessage.appendChild(span);
+            document.getElementById('overlay').appendChild(losingMessage);
+            
             overlayDiv.className = 'lose';
         } else {
             overlayDiv.className = 'win';
@@ -125,6 +174,7 @@
      */
     resetGame(){
         $('#phrase ul').children().remove();
+        $("#additional-message").remove();
         $('.chosen').attr('class', 'key');
         $('.wrong').attr('class', 'key');
         $('.key').prop('disabled', false);
