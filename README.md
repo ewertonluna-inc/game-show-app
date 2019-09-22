@@ -9,7 +9,7 @@ The app.js file is the bridge between the Javascript objects created and the DOM
 
 It is important to remember to reset the DOM to its starting state before running the actual game, every time the game starts, so 
 duplicates are avoided. The reset() method deals with this. It uses jQuery so the targeting of the elements
-becomes easier (jQuery is used ONLY in this method).
+becomes easier (jQuery is used only in this method).
 
  In this project, my goal is to get the "Exceeds Expectations" grade.
  To reach this goal, besides building the basic workings of the game, I aimed
