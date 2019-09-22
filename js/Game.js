@@ -65,7 +65,7 @@
 
         // if player presses a valid key button, the modifications on the game happens
         // otherwise button stays undefined and nothing happens to the game
-        if (button){
+        if (button && !button.disabled){
             button.disabled = true;
             
             if (isMatch){
