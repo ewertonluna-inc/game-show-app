@@ -125,8 +125,8 @@
     createPhrases(){
         const result = [];
         const phrases = [
-            // "Programming is awesome",
-            // "The world is not flat", 
+            "Programming is awesome",
+            "The world is not flat", 
             // "Steph Curry is a sniper",
             // "Neymar falls a lot",
             // "Random phrase",
