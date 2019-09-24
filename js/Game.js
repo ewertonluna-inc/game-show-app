@@ -22,7 +22,7 @@
      * Gets random phrase from phrases
      * @returns {Phrase} phrase object */
     getRandomPhrase(){
-        const index = Math.floor(Math.random() * 1);
+        const index = Math.floor(Math.random() * 5);
         return this.phrases[index];
     }
 
@@ -126,11 +126,10 @@
         const result = [];
         const phrases = [
             "Programming is awesome",
-            "The world is not flat", 
-            // "Steph Curry is a sniper",
-            // "Neymar falls a lot",
-            // "Random phrase",
             "Tatiana",
+            "Steph Curry is a sniper",
+            "Neymar falls a lot",
+            "Random phrase",
         ];
         
         for (let phrase of phrases){
