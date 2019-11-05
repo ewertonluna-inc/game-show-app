@@ -4,7 +4,7 @@ Project 4 - OOP Game Show App
 In this project, I created a broswer-based, word guessing game called "Phrase Hunter". 
 The game is created using JavaScript and Object Oriented Programming. 
 
-The classes created to complete this project was Phrase and Game.
+The classes created in order to complete this project was Phrase and Game.
 The app.js file is the bridge between the Javascript objects created and the DOM.
 
 It is important to remember to reset the DOM to its starting state before running the actual game, every time the game starts, so 
